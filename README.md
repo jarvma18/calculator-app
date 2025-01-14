@@ -11,4 +11,4 @@ Idea was to use colors from old school enviroment:
 - wood for equal sign (#FFC18C)
 - and background as graphite (#41424C).
 
-<img src=https://github.com/user-attachments/assets/e140fafd-8c8b-4a3e-95a9-d701c93a2961 style="width: 400px;">
+<img src=https://github.com/user-attachments/assets/118d2023-3fa4-4fe8-abdc-7fb429c60210 style="width: 400px;">
