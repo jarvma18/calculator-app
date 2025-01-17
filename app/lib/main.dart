@@ -41,7 +41,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return LayoutBuilder(
       builder: (context, constrains) {
         return Scaffold(
-          body: Text('TODO')
+          body: SafeArea(
+            child: Center(
+              child: Column(
+                children: [
+                  Text('Dropdown here'),
+                  Text('History here'),
+                  Text('Active here'),
+                  Text('Keyboard here')
+              ],
+            )))
         );
       }
     );
