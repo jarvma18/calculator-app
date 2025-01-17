@@ -13,4 +13,4 @@ Idea was to use colors from old school enviroment:
 
 Current "UI design" is just a prototype with rough edges. I won't design it further, so next one will be picture of the app UI.
 
-<img src=https://github.com/user-attachments/assets/84daf125-25bf-4787-9104-09eafe2b241d style="width: 400px;">
+<img src=https://github.com/user-attachments/assets/3b0e595a-16a9-4cf9-b609-cce52002084e style="width: 600px;">
