@@ -5,6 +5,17 @@ void main() {
   runApp(MyApp());
 }
 
+class ModeSelectionItem {
+  final int id;
+  final String label;
+
+  ModeSelectionItem(this.id, this.label);
+}
+
+List<ModeSelectionItem> modeSelectionItems = [
+  ModeSelectionItem(1, 'Basic'),
+];
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -38,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController menuController = TextEditingController();
+    ModeSelectionItem? selectedMode;
     return LayoutBuilder(
       builder: (context, constrains) {
         return Scaffold(
@@ -45,7 +58,22 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: Column(
                 children: [
-                  Text('Dropdown here'),
+                  DropdownMenu<ModeSelectionItem>(
+                    initialSelection: modeSelectionItems.first,
+                    controller: menuController,
+                    requestFocusOnTap: true,
+                    onSelected: (ModeSelectionItem? mode) {
+                      selectedMode = mode;
+                    },
+                    dropdownMenuEntries:
+                      modeSelectionItems
+                      .map<DropdownMenuEntry<ModeSelectionItem>>((ModeSelectionItem mode) {
+                        return DropdownMenuEntry<ModeSelectionItem>(
+                          value: mode,
+                          label: mode.label
+                          );
+                      }).toList(),
+                  ),
                   Text('History here'),
                   Text('Active here'),
                   Text('Keyboard here')
