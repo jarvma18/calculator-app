@@ -40,19 +40,21 @@ class MyAppState extends ChangeNotifier {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
+  final TextEditingController menuController = TextEditingController();
+  ModeSelectionItem? selectedMode;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController menuController = TextEditingController();
-    ModeSelectionItem? selectedMode;
     return LayoutBuilder(
-      builder: (context, constrains) {
+      builder: (context, constraints) {
         return Scaffold(
           body: SafeArea(
             child: Center(
@@ -63,22 +65,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller: menuController,
                     requestFocusOnTap: true,
                     onSelected: (ModeSelectionItem? mode) {
-                      selectedMode = mode;
+                      setState(() {
+                        selectedMode = mode;
+                      });
                     },
-                    dropdownMenuEntries:
-                      modeSelectionItems
+                    dropdownMenuEntries: modeSelectionItems
                       .map<DropdownMenuEntry<ModeSelectionItem>>((ModeSelectionItem mode) {
                         return DropdownMenuEntry<ModeSelectionItem>(
                           value: mode,
                           label: mode.label
-                          );
-                      }).toList(),
+                        );
+                      },
+                    ).toList(),
                   ),
                   Text('History here'),
                   Text('Active here'),
                   Text('Keyboard here')
               ],
-            )))
+            )
+          )
+        )
         );
       }
     );
