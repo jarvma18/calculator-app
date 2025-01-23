@@ -1,3 +1,4 @@
+import 'package:app/src/components/mode_dropdown_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController menuController = TextEditingController();
-  ModeSelectionItem? selectedMode;
 
   @override
   Widget build(BuildContext context) {
@@ -59,24 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: Column(
                 children: [
-                  DropdownMenu<ModeSelectionItem>(
-                    initialSelection: modeSelectionItems.first,
-                    controller: menuController,
-                    requestFocusOnTap: true,
-                    onSelected: (ModeSelectionItem? mode) {
-                      setState(() {
-                        selectedMode = mode;
-                      });
-                    },
-                    dropdownMenuEntries: modeSelectionItems
-                      .map<DropdownMenuEntry<ModeSelectionItem>>((ModeSelectionItem mode) {
-                        return DropdownMenuEntry<ModeSelectionItem>(
-                          value: mode,
-                          label: mode.label
-                        );
-                      },
-                    ).toList(),
-                  ),
+                  ModeDropdownMenu(menuController: menuController),
                   Text('History here'),
                   Text('Active here'),
                   Text('Keyboard here')
