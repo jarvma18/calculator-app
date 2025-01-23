@@ -47,7 +47,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
   final TextEditingController menuController = TextEditingController();
   ModeSelectionItem? selectedMode;
 
