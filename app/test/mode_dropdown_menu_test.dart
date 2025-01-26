@@ -25,8 +25,20 @@ void main() {
       expect(find.text(initialSelection).last, findsOneWidget);
     });
 
-    testWidgets('should update the selectedMode when selecting mode', (WidgetTester tester) async {
-      
+    testWidgets('should update the selected mode to Basic when selecting Basic mode', (WidgetTester tester) async {
+      await tester.pumpWidget(createWidgetForTest());
+
+      // Open the dropdown by tapping on the initial selection
+      await tester.tap(find.byType(DropdownMenu<ModeSelectionItem>));
+      await tester.pumpAndSettle();
+
+      // Select the second mode by tapping on its label
+      await tester.tap(find.text('Basic').last);  // Ensure we're selecting the second item
+      await tester.pumpAndSettle();
+
+      // Verify the selected mode is updated
+      expect(find.text('Basic').last, findsOneWidget);
+      expect(controller.text, 'Basic');
     });
 
     testWidgets('should update controller correctly when selecting a mode', (WidgetTester tester) async {
