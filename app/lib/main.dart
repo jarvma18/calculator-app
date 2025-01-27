@@ -49,6 +49,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController menuController = TextEditingController();
+  List<String> historyItems = <String>[
+    '1 + 1 = 2', '2 + 3 = 5', ' 1 x 1 = 1', '2 + 3 = 5', '2 + 3 = 5',
+    '2 + 3 = 5', '2 + 3 = 5', '2 + 3 = 5', '2 + 3 = 5', ' 1 x 1 = 1',
+    ' 1 x 1 = 1', ' 1 x 1 = 1', ' 1 x 1 = 1', ' 1 x 1 = 1'
+    ];
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +65,25 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: [
                   ModeDropdownMenu(menuController: menuController),
-                  Text('History here'),
+                  SizedBox(
+                    height: 300,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: historyItems.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          height: 50,
+                          child: Center(child: Text(historyItems[index])),
+                        );
+                      }
+                    ),
+                  ),
                   Text('Active here'),
                   Text('Keyboard here')
-              ],
+                ],
+              )
             )
           )
-        )
         );
       }
     );
