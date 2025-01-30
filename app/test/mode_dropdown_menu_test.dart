@@ -22,6 +22,7 @@ void main() {
     testWidgets('should set initial selection correctly', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetForTest());
       final initialSelection = modeSelectionItems.first.label;
+
       expect(find.text(initialSelection).last, findsOneWidget);
     });
 
@@ -31,6 +32,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.text('Basic').last);
       await tester.pumpAndSettle();
+
       expect(find.text('Basic').last, findsOneWidget);
       expect(controller.text, 'Basic');
     });
