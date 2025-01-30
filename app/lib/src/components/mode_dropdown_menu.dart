@@ -26,6 +26,7 @@ class _ModeDropdownMenuState extends State<ModeDropdownMenu> {
   Widget build(BuildContext context) {
     return DropdownMenu<ModeSelectionItem>(
       initialSelection: modeSelectionItems.first,
+      width: 250,
       controller: widget.menuController,
       requestFocusOnTap: true,
       onSelected: (ModeSelectionItem? mode) {

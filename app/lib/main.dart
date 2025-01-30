@@ -1,3 +1,4 @@
+import 'package:app/src/components/calculation_bar.dart';
 import 'package:app/src/components/calculation_history.dart';
 import 'package:app/src/components/mode_dropdown_menu.dart';
 import 'package:flutter/material.dart';
@@ -50,11 +51,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController menuController = TextEditingController();
+  late TextEditingController calculatorController = TextEditingController();
   List<String> historyItems = <String>[
     '1 + 1 = 2', '2 + 3 = 5', ' 1 x 1 = 1', '2 + 3 = 5', '2 + 3 = 5',
     '2 + 3 = 5', '2 + 3 = 5', '2 + 3 = 5', '2 + 3 = 5', ' 1 x 1 = 1',
     ' 1 x 1 = 1', ' 1 x 1 = 1', ' 1 x 1 = 1', ' 1 x 1 = 1'
   ];
+  void _appendValue(String value) {
+    setState(() {
+      calculatorController.text += value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ModeDropdownMenu(menuController: menuController),
                   CalculationHistory(historyItems: historyItems),
-                  Text('Active here'),
+                  CalculationBar(calculatorController: calculatorController),
                   Text('Keyboard here')
                 ],
               )
