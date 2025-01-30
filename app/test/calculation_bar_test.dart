@@ -18,8 +18,13 @@ void main() {
   });
 
   group('CalculationBar widget tests', () {
-    testWidgets('...', (WidgetTester tester) async {
-
+    testWidgets('should be empty read-only text field when initialized', (WidgetTester tester) async {
+      await tester.pumpWidget(createWidgetForTest());
+      final textFieldFinder = find.byType(TextField);
+      final TextField textField = tester.widget<TextField>(textFieldFinder);
+      
+      expect(find.text(''), findsOneWidget);
+      expect(textField.readOnly, true);
     });
   });
 }
