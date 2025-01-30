@@ -1,4 +1,3 @@
-import 'package:app/main.dart';
 import 'package:app/src/components/calculation_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
