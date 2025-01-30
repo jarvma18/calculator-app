@@ -75,7 +75,54 @@ class _MyHomePageState extends State<MyHomePage> {
                   ModeDropdownMenu(menuController: menuController),
                   CalculationHistory(historyItems: historyItems),
                   CalculationBar(calculatorController: calculatorController),
-                  Text('Keyboard here')
+                  SizedBox(
+                    height: 250,
+                    width: 250,
+                    child: GridView.count(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      primary: false,
+                      children: [
+                        TextButton(onPressed: () {}, child: Text('mod')),
+                        TextButton(onPressed: () {}, child: Text('%')),
+                        TextButton(onPressed: () {}, child: Text(',')),
+                        TextButton(onPressed: () {}, child: Text('÷')),
+                        TextButton(onPressed: () {}, child: Text('pi')),
+                        TextButton(onPressed: () {}, child: Text('1')),
+                        TextButton(onPressed: () {}, child: Text('2')),
+                        TextButton(onPressed: () {}, child: Text('3')),
+                        TextButton(onPressed: () {}, child: Text('x')),
+                        TextButton(onPressed: () {}, child: Text('√')),
+                        TextButton(onPressed: () {}, child: Text('4')),
+                        TextButton(onPressed: () {}, child: Text('5')),
+                        TextButton(onPressed: () {}, child: Text('6')),
+                        TextButton(onPressed: () {}, child: Text('-')),
+                        TextButton(onPressed: () {}, child: Text('x²')),
+                        TextButton(onPressed: () {}, child: Text('7')),
+                        TextButton(onPressed: () {}, child: Text('8')),
+                        TextButton(onPressed: () {}, child: Text('9')),
+                        TextButton(onPressed: () {}, child: Text('+')),
+                        // Merged "=" button taking space of 2 buttons
+                        GridTile(
+                          footer: GridTileBar(
+                            title: Text(''),
+                          ),
+                          child: SizedBox(
+                            height: (250 - 40) / 5 * 2 + 10, // height of 2 buttons plus spacing
+                            child: TextButton(
+                              onPressed: () {},
+                              child: Text('='),
+                            ),
+                          ),
+                        ),
+                        TextButton(onPressed: () {}, child: Text('(')),
+                        TextButton(onPressed: () {}, child: Text('0')),
+                        TextButton(onPressed: () {}, child: Text(')')),
+                        TextButton(onPressed: () {}, child: Text('C')),
+                      ],
+                    ),
+                  )
                 ],
               )
             )
