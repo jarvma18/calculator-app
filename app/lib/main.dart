@@ -77,51 +77,75 @@ class _MyHomePageState extends State<MyHomePage> {
                   CalculationBar(calculatorController: calculatorController),
                   SizedBox(
                     height: 250,
-                    width: 250,
-                    child: GridView.count(
-                      crossAxisCount: 5,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      primary: false,
+                    width: 300,
+                    child: Row(
                       children: [
-                        TextButton(onPressed: () {}, child: Text('mod')),
-                        TextButton(onPressed: () {}, child: Text('%')),
-                        TextButton(onPressed: () {}, child: Text(',')),
-                        TextButton(onPressed: () {}, child: Text('÷')),
-                        TextButton(onPressed: () {}, child: Text('pi')),
-                        TextButton(onPressed: () {}, child: Text('1')),
-                        TextButton(onPressed: () {}, child: Text('2')),
-                        TextButton(onPressed: () {}, child: Text('3')),
-                        TextButton(onPressed: () {}, child: Text('x')),
-                        TextButton(onPressed: () {}, child: Text('√')),
-                        TextButton(onPressed: () {}, child: Text('4')),
-                        TextButton(onPressed: () {}, child: Text('5')),
-                        TextButton(onPressed: () {}, child: Text('6')),
-                        TextButton(onPressed: () {}, child: Text('-')),
-                        TextButton(onPressed: () {}, child: Text('x²')),
-                        TextButton(onPressed: () {}, child: Text('7')),
-                        TextButton(onPressed: () {}, child: Text('8')),
-                        TextButton(onPressed: () {}, child: Text('9')),
-                        TextButton(onPressed: () {}, child: Text('+')),
-                        // Merged "=" button taking space of 2 buttons
-                        GridTile(
-                          footer: GridTileBar(
-                            title: Text(''),
-                          ),
-                          child: SizedBox(
-                            height: (250 - 40) / 5 * 2 + 10, // height of 2 buttons plus spacing
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text('='),
-                            ),
-                          ),
+                        // First column
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () {}, child: Text('mod')),
+                            TextButton(onPressed: () {}, child: Text('1')),
+                            TextButton(onPressed: () {}, child: Text('4')),
+                            TextButton(onPressed: () {}, child: Text('7')),
+                            TextButton(onPressed: () {}, child: Text('(')),
+                          ],
                         ),
-                        TextButton(onPressed: () {}, child: Text('(')),
-                        TextButton(onPressed: () {}, child: Text('0')),
-                        TextButton(onPressed: () {}, child: Text(')')),
-                        TextButton(onPressed: () {}, child: Text('C')),
+                        SizedBox(height: 10),
+                        // Second column
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () {}, child: Text('%')),
+                            TextButton(onPressed: () {}, child: Text('2')),
+                            TextButton(onPressed: () {}, child: Text('5')),
+                            TextButton(onPressed: () {}, child: Text('8')),
+                            TextButton(onPressed: () {}, child: Text('0')),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        // Third column
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () {}, child: Text(',')),
+                            TextButton(onPressed: () {}, child: Text('3')),
+                            TextButton(onPressed: () {}, child: Text('6')),
+                            TextButton(onPressed: () {}, child: Text('9')),
+                            TextButton(onPressed: () {}, child: Text(')')),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        // Fourth column
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () {}, child: Text('÷')),
+                            TextButton(onPressed: () {}, child: Text('x')),
+                            TextButton(onPressed: () {}, child: Text('-')),
+                            TextButton(onPressed: () {}, child: Text('+')),
+                            TextButton(onPressed: () {}, child: Text('C')),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        // Fifth column
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () {}, child: Text('pi')),
+                            TextButton(onPressed: () {}, child: Text('√')),
+                            TextButton(onPressed: () {}, child: Text('x²')),
+                            SizedBox(
+                              height: (250 - (10 * 4)) / 5 * 2 + 10, // height of 2 rows plus spacing
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text('='),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
-                    ),
+                    )
                   )
                 ],
               )
