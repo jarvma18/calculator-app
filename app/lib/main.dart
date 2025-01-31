@@ -84,11 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextButton(onPressed: () {}, child: Text('mod')),
-                            TextButton(onPressed: () {}, child: Text('1')),
-                            TextButton(onPressed: () {}, child: Text('4')),
-                            TextButton(onPressed: () {}, child: Text('7')),
-                            TextButton(onPressed: () {}, child: Text('(')),
+                            TextButton(onPressed: () {}, child: Text('mod')), // Action
+                            TextButton(onPressed: () {}, child: Text('1')), // Append text
+                            TextButton(onPressed: () {}, child: Text('4')), // Append text
+                            TextButton(onPressed: () {}, child: Text('7')), // Append text
+                            TextButton(onPressed: () {}, child: Text('(')), // Append text
                           ],
                         ),
                         SizedBox(height: 10),
@@ -96,11 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextButton(onPressed: () {}, child: Text('%')),
-                            TextButton(onPressed: () {}, child: Text('2')),
-                            TextButton(onPressed: () {}, child: Text('5')),
-                            TextButton(onPressed: () {}, child: Text('8')),
-                            TextButton(onPressed: () {}, child: Text('0')),
+                            TextButton(onPressed: () {}, child: Text('%')), // Action
+                            TextButton(onPressed: () {}, child: Text('2')), // Append text
+                            TextButton(onPressed: () {}, child: Text('5')), // Append text
+                            TextButton(onPressed: () {}, child: Text('8')), // Append text
+                            TextButton(onPressed: () {}, child: Text('0')), // Append text
                           ],
                         ),
                         SizedBox(height: 10),
@@ -108,11 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextButton(onPressed: () {}, child: Text(',')),
-                            TextButton(onPressed: () {}, child: Text('3')),
-                            TextButton(onPressed: () {}, child: Text('6')),
-                            TextButton(onPressed: () {}, child: Text('9')),
-                            TextButton(onPressed: () {}, child: Text(')')),
+                            TextButton(onPressed: () {}, child: Text(',')), // Append text
+                            TextButton(onPressed: () {}, child: Text('3')), // Append text
+                            TextButton(onPressed: () {}, child: Text('6')), // Append text
+                            TextButton(onPressed: () {}, child: Text('9')), // Append text
+                            TextButton(onPressed: () {}, child: Text(')')), // Append text
                           ],
                         ),
                         SizedBox(height: 10),
@@ -120,11 +120,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextButton(onPressed: () {}, child: Text('÷')),
-                            TextButton(onPressed: () {}, child: Text('x')),
-                            TextButton(onPressed: () {}, child: Text('-')),
-                            TextButton(onPressed: () {}, child: Text('+')),
-                            TextButton(onPressed: () {}, child: Text('C')),
+                            TextButton(onPressed: () {}, child: Text('÷')), // Append text
+                            TextButton(onPressed: () {}, child: Text('x')), // Append text
+                            TextButton(onPressed: () {}, child: Text('-')), // Append text
+                            TextButton(onPressed: () {}, child: Text('+')), // Append text
+                            TextButton(onPressed: () {}, child: Text('C')), // Remove text
                           ],
                         ),
                         SizedBox(height: 10),
@@ -132,14 +132,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextButton(onPressed: () {}, child: Text('pi')),
-                            TextButton(onPressed: () {}, child: Text('√')),
-                            TextButton(onPressed: () {}, child: Text('x²')),
+                            TextButton(onPressed: () {}, child: Text('pi')), //Action
+                            TextButton(onPressed: () {}, child: Text('√')), // Append text
+                            TextButton(onPressed: () {}, child: Text('x²')), // Append text
                             SizedBox(
                               height: (250 - (10 * 4)) / 5 * 2 + 10, // height of 2 rows plus spacing
                               child: TextButton(
                                 onPressed: () {},
-                                child: Text('='),
+                                child: Text('='), // Action
                               ),
                             ),
                           ],
