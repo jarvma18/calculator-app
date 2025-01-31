@@ -73,6 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _removeAllFromCalculator() {
+    setState(() {
+      String text = calculator.text;
+      if (text.isNotEmpty) {
+        calculator.text = '';
+        calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -134,7 +144,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             TextButton(onPressed: () { _appendValueToCalculator('x'); }, child: Text('x')), // Append text
                             TextButton(onPressed: () { _appendValueToCalculator('-'); }, child: Text('-')), // Append text
                             TextButton(onPressed: () { _appendValueToCalculator('+'); }, child: Text('+')), // Append text
-                            TextButton(onPressed: () { _removeValueFromCalculator(); }, child: Text('C')), // Remove text
+                            TextButton(
+                              onPressed: () { _removeValueFromCalculator(); },
+                              onLongPress: () { _removeAllFromCalculator(); },
+                              child: Text('C')), // Remove text
                           ],
                         ),
                         SizedBox(height: 10),
