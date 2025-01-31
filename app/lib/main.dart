@@ -166,7 +166,7 @@ class CalculationKeyboard extends StatelessWidget {
             //     onPressed: () { _removeValueFromCalculator(); },
             //     onLongPress: () { _removeAllFromCalculator(); },
             //     child: Text('C')), // Remove text
-            // ],
+            ],
           ),
           SizedBox(height: 10),
           // Fifth column
