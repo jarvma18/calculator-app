@@ -1,8 +1,8 @@
 import 'package:app/main.dart';
 import 'package:flutter/material.dart';
 
-class ModeDropdownMenu extends StatefulWidget {
-  const ModeDropdownMenu({
+class CalculationMode extends StatefulWidget {
+  const CalculationMode({
     super.key,
     required this.menuController,
   });
@@ -10,10 +10,10 @@ class ModeDropdownMenu extends StatefulWidget {
   final TextEditingController menuController;
 
   @override
-  State<ModeDropdownMenu> createState() => _ModeDropdownMenuState();
+  State<CalculationMode> createState() => _CalculationModeState();
 }
 
-class _ModeDropdownMenuState extends State<ModeDropdownMenu> {
+class _CalculationModeState extends State<CalculationMode> {
   ModeSelectionItem? selectedMode;
 
   void selectCalculatorMode(ModeSelectionItem? mode) {

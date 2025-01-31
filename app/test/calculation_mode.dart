@@ -9,7 +9,7 @@ void main() {
   Widget createWidgetForTest() {
     return MaterialApp(
       home: Scaffold(
-        body: ModeDropdownMenu(menuController: controller),
+        body: CalculationMode(menuController: controller),
       ),
     );
   }
