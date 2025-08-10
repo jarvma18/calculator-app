@@ -66,7 +66,6 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
               TextButton(onPressed: () { _appendValueToCalculator('('); }, child: Text('(')), // Append text
             ],
           ),
-          SizedBox(height: 10),
           // Second column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +77,6 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
               TextButton(onPressed: () { _appendValueToCalculator('0'); }, child: Text('0')), // Append text
             ],
           ),
-          SizedBox(height: 10),
           // Third column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +88,6 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
               TextButton(onPressed: () { _appendValueToCalculator(')'); }, child: Text(')')), // Append text
             ],
           ),
-          SizedBox(height: 10),
           // Fourth column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,7 +102,6 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
                 child: Text('C')), // Remove text
             ],
           ),
-          SizedBox(height: 10),
           // Fifth column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
