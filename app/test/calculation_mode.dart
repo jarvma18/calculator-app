@@ -1,5 +1,5 @@
 import 'package:app/main.dart';
-import 'package:app/src/components/mode_dropdown_menu.dart';
+import 'package:app/src/components/calculation_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
