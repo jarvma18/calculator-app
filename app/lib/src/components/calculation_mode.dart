@@ -1,5 +1,11 @@
-import 'package:app/main.dart';
 import 'package:flutter/material.dart';
+
+class ModeSelectionItem {
+  final int id;
+  final String label;
+
+  ModeSelectionItem(this.id, this.label);
+}
 
 class CalculationMode extends StatefulWidget {
   const CalculationMode({
@@ -14,6 +20,10 @@ class CalculationMode extends StatefulWidget {
 }
 
 class _CalculationModeState extends State<CalculationMode> {
+  List<ModeSelectionItem> modeSelectionItems = [
+    ModeSelectionItem(1, 'Basic'),
+  ];
+
   ModeSelectionItem? selectedMode;
 
   void selectCalculatorMode(ModeSelectionItem? mode) {
