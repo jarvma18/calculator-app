@@ -10,10 +10,10 @@ class KeyboardInput {
 class CalculationKeyboard extends StatefulWidget {
   const CalculationKeyboard({
     super.key,
-    required this.keyboardController
+    required this.appendCalculatorCallback,
   });
 
-  final TextEditingController keyboardController;
+  final Function appendCalculatorCallback;
 
   @override
   State<CalculationKeyboard> createState() => _CalculationKeyboardState();
@@ -25,6 +25,7 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
   void _appendValueToCalculator(String value) {
     return setState(() {
       calculator.text += value;
+      widget.appendCalculatorCallback(calculator.text, calculator.selection);
     });
   }
 
@@ -34,6 +35,7 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
       if (text.isNotEmpty) {
         calculator.text = text.substring(0, text.length - 1);
         calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+        widget.appendCalculatorCallback(calculator.text, calculator.selection);
       }
     });
   }
@@ -44,6 +46,7 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
       if (text.isNotEmpty) {
         calculator.text = '';
         calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+        widget.appendCalculatorCallback(calculator.text, calculator.selection);
       }
     });
   }
