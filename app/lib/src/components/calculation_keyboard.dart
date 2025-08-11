@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
-class KeyboardInput {
-  String text;
-  TextSelection selection;
-
-  KeyboardInput(this.text, this.selection);
-}
+TextEditingValue calculator = const TextEditingValue(text: '', selection: TextSelection.collapsed(offset: 0));
 
 class CalculationKeyboard extends StatefulWidget {
   const CalculationKeyboard({
     super.key,
-    required this.appendCalculatorCallback,
+    required this.onChanged,
   });
 
-  final Function appendCalculatorCallback;
+  final void Function(String text, TextSelection selection) onChanged;
 
   @override
   State<CalculationKeyboard> createState() => _CalculationKeyboardState();
@@ -23,32 +18,33 @@ class _CalculationKeyboardState extends State<CalculationKeyboard> {
   KeyboardInput calculator = KeyboardInput('', TextSelection.collapsed(offset: 0));
 
   void _appendValueToCalculator(String value) {
-    return setState(() {
+    setState(() {
       calculator.text += value;
-      widget.appendCalculatorCallback(calculator.text, calculator.selection);
+      calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
     });
+    widget.onChanged(calculator.text, calculator.selection);
   }
 
   void _removeValueFromCalculator() {
-    return setState(() {
+    setState(() {
       String text = calculator.text;
       if (text.isNotEmpty) {
         calculator.text = text.substring(0, text.length - 1);
         calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
-        widget.appendCalculatorCallback(calculator.text, calculator.selection);
       }
     });
+    widget.onChanged(calculator.text, calculator.selection);
   }
 
   void _removeAllFromCalculator() {
-    return setState(() {
+    setState(() {
       String text = calculator.text;
       if (text.isNotEmpty) {
         calculator.text = '';
         calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
-        widget.appendCalculatorCallback(calculator.text, calculator.selection);
       }
     });
+    widget.onChanged(calculator.text, calculator.selection);
   }
 
   @override

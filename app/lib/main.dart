@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 23, 21, 145)),
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -41,11 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   void _appendKeyboardStateToCalculator(String value, [TextSelection? selection]) {
-    if (selection != null) {
-      calculator.selection = selection;
-    }
-    calculator.text = value;
-    print('Calculator text: ${calculator.text}');
+    final selValue = selection ?? TextSelection.collapsed(offset: value.length);
+    calculator.value = TextEditingValue(text: value, selection: selValue);
   }
 
   @override
@@ -60,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   CalculationMode(menuController: menu),
                   CalculationHistory(historyItems: historyItems),
                   CalculationBar(calculatorController: calculator),
-                  CalculationKeyboard(appendCalculatorCallback: _appendKeyboardStateToCalculator),
+                  CalculationKeyboard(onChanged: _appendKeyboardStateToCalculator),
                 ],
               )
             )
