@@ -1,6 +1,23 @@
 # calculator-app
 
-TODO
+## Overview
+The Calculator App is a simple application designed to perform basic arithmetic operations. It provides users with an interface to perform calculations such as addition, subtraction, multiplication, and division.
+
+## Debugging and Testing
+
+### Debug Build
+To create a debug build of the Calculator App, use the following command:
+```
+flutter build apk --debug
+```
+This will generate a debug APK that can be installed on an Android device for testing purposes.
+
+### Running Tests
+To ensure the app functions as expected, you can run the test suite using:
+```
+flutter test
+```
+This will execute all unit and widget tests defined in the project.
 
 ## Figma prototype
 
