@@ -7,8 +7,8 @@ class ModeSelectionItem {
   ModeSelectionItem(this.id, this.label);
 }
 
-class CalculationMode extends StatefulWidget {
-  const CalculationMode({
+class CalculatorMode extends StatefulWidget {
+  const CalculatorMode({
     super.key,
     required this.menuController,
   });
@@ -16,10 +16,10 @@ class CalculationMode extends StatefulWidget {
   final TextEditingController menuController;
 
   @override
-  State<CalculationMode> createState() => _CalculationModeState();
+  State<CalculatorMode> createState() => _CalculatorModeState();
 }
 
-class _CalculationModeState extends State<CalculationMode> {
+class _CalculatorModeState extends State<CalculatorMode> {
   List<ModeSelectionItem> modeSelectionItems = [
     ModeSelectionItem(1, 'Basic'),
   ];

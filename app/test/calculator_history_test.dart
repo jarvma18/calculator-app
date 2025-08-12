@@ -10,7 +10,7 @@ void main() {
   Widget createWidgetForTest() {
     return MaterialApp(
       home: Scaffold(
-        body: CalculationHistory(historyItems: historyItems),
+        body: CalculatorHistory(historyItems: historyItems),
       ),
     );
   }

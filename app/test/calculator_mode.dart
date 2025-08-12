@@ -1,15 +1,17 @@
-import 'package:app/main.dart';
 import 'package:app/src/components/calculator_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   late TextEditingController controller;
+  List<ModeSelectionItem> modeSelectionItems = [
+    ModeSelectionItem(1, 'Basic'),
+  ];
 
   Widget createWidgetForTest() {
     return MaterialApp(
       home: Scaffold(
-        body: CalculationMode(menuController: controller),
+        body: CalculatorMode(menuController: controller),
       ),
     );
   }

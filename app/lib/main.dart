@@ -50,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
               child: Column(
                 children: [
-                  CalculationMode(menuController: menu),
-                  CalculationHistory(historyItems: historyItems),
-                  CalculationBar(calculatorController: calculator),
+                  CalculatorMode(menuController: menu),
+                  CalculatorHistory(historyItems: historyItems),
+                  CalculatorBar(calculatorController: calculator),
                   CalculationKeyboard(onChanged: _appendKeyboardStateToCalculator),
                 ],
               )

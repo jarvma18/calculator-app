@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CalculationHistory extends StatelessWidget {
-  const CalculationHistory({
+class CalculatorHistory extends StatelessWidget {
+  const CalculatorHistory({
     super.key,
     required this.historyItems,
   });

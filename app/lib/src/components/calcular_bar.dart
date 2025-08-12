@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CalculationBar extends StatelessWidget {
-  const CalculationBar({
+class CalculatorBar extends StatelessWidget {
+  const CalculatorBar({
     super.key,
     required this.calculatorController,
   });

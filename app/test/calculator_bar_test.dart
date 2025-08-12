@@ -8,7 +8,7 @@ void main() {
   Widget createWidgetForTest() {
     return MaterialApp(
       home: Scaffold(
-        body: CalculationBar(calculatorController: controller),
+        body: CalculatorBar(calculatorController: controller),
       ),
     );
   }
