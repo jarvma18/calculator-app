@@ -1,4 +1,4 @@
-import 'package:app/src/components/calcular_bar.dart';
+import 'package:app/src/components/calculator_bar.dart';
 import 'package:app/src/components/calculator_history.dart';
 import 'package:app/src/components/calculator_keyboard.dart';
 import 'package:app/src/components/calculator_mode.dart';
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   CalculatorMode(menuController: menu),
                   CalculatorHistory(historyItems: historyItems),
                   CalculatorBar(calculatorController: calculator),
-                  CalculationKeyboard(onChanged: _appendKeyboardStateToCalculator),
+                  CalculatorKeyboard(onChanged: _appendKeyboardStateToCalculator),
                 ],
               )
             )

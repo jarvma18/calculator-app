@@ -7,8 +7,8 @@ class KeyboardInput {
   KeyboardInput(this.text, this.selection);
 }
 
-class CalculationKeyboard extends StatefulWidget {
-  const CalculationKeyboard({
+class CalculatorKeyboard extends StatefulWidget {
+  const CalculatorKeyboard({
     super.key,
     required this.onChanged,
   });
@@ -16,10 +16,10 @@ class CalculationKeyboard extends StatefulWidget {
   final void Function(String text, TextSelection selection) onChanged;
 
   @override
-  State<CalculationKeyboard> createState() => _CalculationKeyboardState();
+  State<CalculatorKeyboard> createState() => _CalculatorKeyboardState();
 }
 
-class _CalculationKeyboardState extends State<CalculationKeyboard> {
+class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
   KeyboardInput calculator = KeyboardInput('', TextSelection.collapsed(offset: 0));
 
   void _appendValueToCalculator(String value) {
