@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-TextEditingValue calculator = const TextEditingValue(text: '', selection: TextSelection.collapsed(offset: 0));
+class KeyboardInput {
+  String text;
+  TextSelection selection;
+
+  KeyboardInput(this.text, this.selection);
+}
 
 class CalculationKeyboard extends StatefulWidget {
   const CalculationKeyboard({

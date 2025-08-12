@@ -1,7 +1,7 @@
-import 'package:app/src/components/calculation_bar.dart';
-import 'package:app/src/components/calculation_history.dart';
-import 'package:app/src/components/calculation_keyboard.dart';
-import 'package:app/src/components/calculation_mode.dart';
+import 'package:app/src/components/calcular_bar.dart';
+import 'package:app/src/components/calculator_history.dart';
+import 'package:app/src/components/calculator_keyboard.dart';
+import 'package:app/src/components/calculator_mode.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,11 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController menu = TextEditingController();
   late TextEditingController calculator = TextEditingController();
-  List<String> historyItems = <String>[
-    '1 + 1 = 2', '2 + 3 = 5', ' 1 x 1 = 1', '2 + 3 = 5', '2 + 3 = 5',
-    '2 + 3 = 5', '2 + 3 = 5', '2 + 3 = 5', '2 + 3 = 5', ' 1 x 1 = 1',
-    ' 1 x 1 = 1', ' 1 x 1 = 1', ' 1 x 1 = 1', ' 1 x 1 = 1'
-  ];
+  List<String> historyItems = <String>[];
 
   void _appendKeyboardStateToCalculator(String value, [TextSelection? selection]) {
     final selValue = selection ?? TextSelection.collapsed(offset: value.length);
