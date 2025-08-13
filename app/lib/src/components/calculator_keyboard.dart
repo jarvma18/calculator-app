@@ -56,7 +56,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250,
-      width: 300,
+      width: 350,
       child: Row(
         children: [
           // First column

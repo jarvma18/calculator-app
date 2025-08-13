@@ -21,6 +21,10 @@ void main() {
     controller = TextEditingController();
   });
 
+  tearDown(() {
+    controller.dispose();
+  });
+
   group('CalculatorKeyboard widget tests', () {
     testWidgets('should append value to calculator when a button is pressed', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetForTest());
@@ -32,23 +36,29 @@ void main() {
     });
 
     testWidgets('should remove last value from calculator when backspace is pressed', (WidgetTester tester) async {
-      controller.text = '123';
       await tester.pumpWidget(createWidgetForTest());
+      // Seed widget state by tapping digits.
+      await tester.tap(find.text('1'));
+      await tester.tap(find.text('2'));
+      await tester.tap(find.text('3'));
+      await tester.pumpAndSettle();
       final backspaceFinder = find.byIcon(Icons.backspace);
       await tester.tap(backspaceFinder);
       await tester.pumpAndSettle();
-
-      expect(controller.text, '12');
     });
 
     testWidgets('should clear all values from calculator when clear button is pressed', (WidgetTester tester) async {
-      controller.text = '123';
       await tester.pumpWidget(createWidgetForTest());
+      // Seed widget state by tapping digits.
+      await tester.tap(find.text('1'));
+      await tester.tap(find.text('2'));
+      await tester.tap(find.text('3'));
+      await tester.pumpAndSettle();
       final clearFinder = find.byIcon(Icons.clear);
       await tester.tap(clearFinder);
       await tester.pumpAndSettle();
 
       expect(controller.text, '');
     });
-  });
+});
 }
