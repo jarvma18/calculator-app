@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:app/src/components/calculator_keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -31,7 +33,6 @@ void main() {
       final buttonFinder = find.text('1');
       await tester.tap(buttonFinder);
       await tester.pumpAndSettle();
-
       expect(controller.text, '1');
     });
 
@@ -42,9 +43,9 @@ void main() {
       await tester.tap(find.text('2'));
       await tester.tap(find.text('3'));
       await tester.pumpAndSettle();
-      final backspaceFinder = find.byIcon(Icons.backspace);
-      await tester.tap(backspaceFinder);
+      await tester.tap(find.text('C'));
       await tester.pumpAndSettle();
+      expect(controller.text, '12');
     });
 
     testWidgets('should clear all values from calculator when clear button is pressed', (WidgetTester tester) async {
@@ -54,10 +55,8 @@ void main() {
       await tester.tap(find.text('2'));
       await tester.tap(find.text('3'));
       await tester.pumpAndSettle();
-      final clearFinder = find.byIcon(Icons.clear);
-      await tester.tap(clearFinder);
+      await tester.longPress(find.text('C'));
       await tester.pumpAndSettle();
-
       expect(controller.text, '');
     });
 });
