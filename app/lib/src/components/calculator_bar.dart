@@ -10,12 +10,17 @@ class CalculatorBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250,
-      child: TextField(
-        readOnly: true,
-        controller: calculatorController,
-      ),
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child:
+        SizedBox(
+          width: 350,
+          height: 50,
+          child: TextField(
+            readOnly: true,
+            controller: calculatorController,
+          ),
+        ),
     );
   }
 }

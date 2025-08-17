@@ -34,22 +34,25 @@ class _CalculatorModeState extends State<CalculatorMode> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownMenu<ModeSelectionItem>(
-      initialSelection: modeSelectionItems.first,
-      width: 250,
-      controller: widget.menuController,
-      requestFocusOnTap: true,
-      onSelected: (ModeSelectionItem? mode) {
-        selectCalculatorMode(mode);
-      },
-      dropdownMenuEntries: modeSelectionItems
-        .map<DropdownMenuEntry<ModeSelectionItem>>((ModeSelectionItem mode) {
-          return DropdownMenuEntry<ModeSelectionItem>(
-            value: mode,
-            label: mode.label
-          );
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: DropdownMenu<ModeSelectionItem>(
+        initialSelection: modeSelectionItems.first,
+        width: 250,
+        controller: widget.menuController,
+        requestFocusOnTap: true,
+        onSelected: (ModeSelectionItem? mode) {
+          selectCalculatorMode(mode);
         },
-      ).toList(),
+        dropdownMenuEntries: modeSelectionItems
+          .map<DropdownMenuEntry<ModeSelectionItem>>((ModeSelectionItem mode) {
+            return DropdownMenuEntry<ModeSelectionItem>(
+              value: mode,
+              label: mode.label
+            );
+          },
+        ).toList(),
+      ),
     );
   }
 }
