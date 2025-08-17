@@ -27,7 +27,7 @@ class _CalculatorModeState extends State<CalculatorMode> {
   ModeSelectionItem? selectedMode;
 
   void selectCalculatorMode(ModeSelectionItem? mode) {
-    return setState(() {
+    setState(() {
       selectedMode = mode;
     });
   }
@@ -36,22 +36,27 @@ class _CalculatorModeState extends State<CalculatorMode> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
-      child: DropdownMenu<ModeSelectionItem>(
-        initialSelection: modeSelectionItems.first,
-        width: 250,
-        controller: widget.menuController,
-        requestFocusOnTap: true,
-        onSelected: (ModeSelectionItem? mode) {
-          selectCalculatorMode(mode);
-        },
-        dropdownMenuEntries: modeSelectionItems
-          .map<DropdownMenuEntry<ModeSelectionItem>>((ModeSelectionItem mode) {
-            return DropdownMenuEntry<ModeSelectionItem>(
-              value: mode,
-              label: mode.label
-            );
+      child: Container(
+        color: const Color(0xFFF7E7CE),
+        child: DropdownMenu<ModeSelectionItem>(
+          initialSelection: modeSelectionItems.first,
+          width: 350,
+          controller: widget.menuController,
+          requestFocusOnTap: true,
+          onSelected: (ModeSelectionItem? mode) {
+            selectCalculatorMode(mode);
           },
-        ).toList(),
+          dropdownMenuEntries: modeSelectionItems
+              .map<DropdownMenuEntry<ModeSelectionItem>>(
+                (ModeSelectionItem mode) {
+                  return DropdownMenuEntry<ModeSelectionItem>(
+                    value: mode,
+                    label: mode.label,
+                  );
+                },
+              )
+              .toList(),
+        ),
       ),
     );
   }

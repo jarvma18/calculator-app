@@ -10,7 +10,9 @@ class CalculatorHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: const Color(0xFF51906A),
+      width: 350,
       height: 300,
       child: ListView.builder(
         padding: const EdgeInsets.all(8),
