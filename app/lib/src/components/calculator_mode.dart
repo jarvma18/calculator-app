@@ -37,11 +37,17 @@ class _CalculatorModeState extends State<CalculatorMode> {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Container(
-        color: const Color(0xFFF7E7CE),
+        color: const Color(0xFFF7E7FF),
         child: DropdownMenu<ModeSelectionItem>(
           initialSelection: modeSelectionItems.first,
           width: 350,
           controller: widget.menuController,
+          textAlign: TextAlign.center,
+          textStyle: const TextStyle(
+            fontSize: 18,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
           requestFocusOnTap: true,
           onSelected: (ModeSelectionItem? mode) {
             selectCalculatorMode(mode);

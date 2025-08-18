@@ -19,6 +19,11 @@ class CalculatorBar extends StatelessWidget {
         readOnly: true,
         controller: calculatorController,
         textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       ),
     );
