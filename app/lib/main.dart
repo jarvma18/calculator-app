@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          backgroundColor: const Color(0xFF41424C),
+            backgroundColor: const Color(0xFF232427),
           body: SafeArea(
             child: Center(
               child: Column(
