@@ -52,6 +52,40 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
+  Widget _buildKeyboardButton({required String text, required VoidCallback onPressed}) {
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: TextButton(
+        onPressed: onPressed,
+        child: Text(text, style: const TextStyle(fontSize: 20)),
+      ),
+    );
+  }
+
+  Widget _buildClearButton({required String text, required VoidCallback onPressed, required VoidCallback onLongPress}) {
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: TextButton(
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        child: Text(text, style: const TextStyle(fontSize: 20)),
+      ),
+    );
+  }
+
+  Widget _buildResultButton({required String text, required VoidCallback onPressed}) {
+    return SizedBox(
+      height: (250 - (10 * 4)) / 5 * 2 + 10, // height of 2 rows plus spacing
+      width: 50,
+      child: TextButton(
+        onPressed: onPressed,
+        child: Text(text, style: const TextStyle(fontSize: 20)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -63,63 +97,54 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: () {}, child: Text('mod')), // Action
-              TextButton(onPressed: () { _appendValueToCalculator('1'); }, child: Text('1')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('4'); }, child: Text('4')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('7'); }, child: Text('7')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('('); }, child: Text('(')), // Append text
+              _buildKeyboardButton(text: 'mod', onPressed: () {},),
+              _buildKeyboardButton(text: '1', onPressed: () { _appendValueToCalculator('1'); },),
+              _buildKeyboardButton(text: '4', onPressed: () { _appendValueToCalculator('4'); },),
+              _buildKeyboardButton(text: '7', onPressed: () { _appendValueToCalculator('7'); },),
+              _buildKeyboardButton(text: '(', onPressed: () { _appendValueToCalculator('('); },),
             ],
           ),
           // Second column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: () {}, child: Text('%')), // Action
-              TextButton(onPressed: () { _appendValueToCalculator('2'); }, child: Text('2')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('5'); }, child: Text('5')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('8'); }, child: Text('8')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('0'); }, child: Text('0')), // Append text
+              _buildKeyboardButton(text: '%', onPressed: () {},),
+              _buildKeyboardButton(text: '2', onPressed: () { _appendValueToCalculator('2'); },),
+              _buildKeyboardButton(text: '5', onPressed: () { _appendValueToCalculator('5'); },),
+              _buildKeyboardButton(text: '8', onPressed: () { _appendValueToCalculator('8'); },),
+              _buildKeyboardButton(text: '0', onPressed: () { _appendValueToCalculator('0'); },),
             ],
           ),
           // Third column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: () { _appendValueToCalculator(','); }, child: Text(',')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('3'); }, child: Text('3')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('6'); }, child: Text('6')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('9'); }, child: Text('9')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator(')'); }, child: Text(')')), // Append text
+              _buildKeyboardButton(text: ',', onPressed: () { _appendValueToCalculator(','); },),
+              _buildKeyboardButton(text: '3', onPressed: () { _appendValueToCalculator('3'); },),
+              _buildKeyboardButton(text: '6', onPressed: () { _appendValueToCalculator('6'); },),
+              _buildKeyboardButton(text: '9', onPressed: () { _appendValueToCalculator('9'); },),
+              _buildKeyboardButton(text: ')', onPressed: () { _appendValueToCalculator(')'); },),
             ],
           ),
           // Fourth column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: () { _appendValueToCalculator('÷'); }, child: Text('÷')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('x'); }, child: Text('x')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('-'); }, child: Text('-')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('+'); }, child: Text('+')), // Append text
-              TextButton(
-                onPressed: () { _removeValueFromCalculator(); },
-                onLongPress: () { _removeAllFromCalculator(); },
-                child: Text('C')), // Remove text
+              _buildKeyboardButton(text: '÷', onPressed: () { _appendValueToCalculator('÷'); },),
+              _buildKeyboardButton(text: 'x', onPressed: () { _appendValueToCalculator('x'); },),
+              _buildKeyboardButton(text: '-', onPressed: () { _appendValueToCalculator('-'); },),
+              _buildKeyboardButton(text: '+', onPressed: () { _appendValueToCalculator('+'); },),
+              _buildClearButton(text: 'C', onPressed: () { _removeValueFromCalculator(); }, onLongPress: () { _removeAllFromCalculator(); }),
             ],
           ),
           // Fifth column
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: () {}, child: Text('pi')), //Action
-              TextButton(onPressed: () { _appendValueToCalculator('√'); }, child: Text('√')), // Append text
-              TextButton(onPressed: () { _appendValueToCalculator('²'); }, child: Text('x²')), // Append text
-              SizedBox(
-                height: (250 - (10 * 4)) / 5 * 2 + 10, // height of 2 rows plus spacing
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('='), // Action
-                ),
-              ),
+              _buildKeyboardButton(text: 'pi', onPressed: () {},),
+              _buildKeyboardButton(text: '√', onPressed: () { _appendValueToCalculator('√'); },),
+              _buildKeyboardButton(text: '²', onPressed: () { _appendValueToCalculator('²'); },),
+              _buildResultButton(text: '=', onPressed: () {}),
             ],
           )
         ],
