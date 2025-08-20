@@ -86,6 +86,13 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     );
   }
 
+  Widget _buildKeyboardColumn({required List<Widget> children,}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: children,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -93,60 +100,40 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
       width: 350,
       child: Row(
         children: [
-          // First column
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildKeyboardButton(text: 'mod', onPressed: () {},),
-              _buildKeyboardButton(text: '1', onPressed: () { _appendValueToCalculator('1'); },),
-              _buildKeyboardButton(text: '4', onPressed: () { _appendValueToCalculator('4'); },),
-              _buildKeyboardButton(text: '7', onPressed: () { _appendValueToCalculator('7'); },),
-              _buildKeyboardButton(text: '(', onPressed: () { _appendValueToCalculator('('); },),
-            ],
-          ),
-          // Second column
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildKeyboardButton(text: '%', onPressed: () {},),
-              _buildKeyboardButton(text: '2', onPressed: () { _appendValueToCalculator('2'); },),
-              _buildKeyboardButton(text: '5', onPressed: () { _appendValueToCalculator('5'); },),
-              _buildKeyboardButton(text: '8', onPressed: () { _appendValueToCalculator('8'); },),
-              _buildKeyboardButton(text: '0', onPressed: () { _appendValueToCalculator('0'); },),
-            ],
-          ),
-          // Third column
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildKeyboardButton(text: ',', onPressed: () { _appendValueToCalculator(','); },),
-              _buildKeyboardButton(text: '3', onPressed: () { _appendValueToCalculator('3'); },),
-              _buildKeyboardButton(text: '6', onPressed: () { _appendValueToCalculator('6'); },),
-              _buildKeyboardButton(text: '9', onPressed: () { _appendValueToCalculator('9'); },),
-              _buildKeyboardButton(text: ')', onPressed: () { _appendValueToCalculator(')'); },),
-            ],
-          ),
-          // Fourth column
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildKeyboardButton(text: '÷', onPressed: () { _appendValueToCalculator('÷'); },),
-              _buildKeyboardButton(text: 'x', onPressed: () { _appendValueToCalculator('x'); },),
-              _buildKeyboardButton(text: '-', onPressed: () { _appendValueToCalculator('-'); },),
-              _buildKeyboardButton(text: '+', onPressed: () { _appendValueToCalculator('+'); },),
-              _buildClearButton(text: 'C', onPressed: () { _removeValueFromCalculator(); }, onLongPress: () { _removeAllFromCalculator(); }),
-            ],
-          ),
-          // Fifth column
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildKeyboardButton(text: 'pi', onPressed: () {},),
-              _buildKeyboardButton(text: '√', onPressed: () { _appendValueToCalculator('√'); },),
-              _buildKeyboardButton(text: '²', onPressed: () { _appendValueToCalculator('²'); },),
-              _buildResultButton(text: '=', onPressed: () {}),
-            ],
-          )
+          _buildKeyboardColumn(children: [
+            _buildKeyboardButton(text: 'mod', onPressed: () {},),
+            _buildKeyboardButton(text: '1', onPressed: () { _appendValueToCalculator('1'); },),
+            _buildKeyboardButton(text: '4', onPressed: () { _appendValueToCalculator('4'); },),
+            _buildKeyboardButton(text: '7', onPressed: () { _appendValueToCalculator('7'); },),
+            _buildKeyboardButton(text: '(', onPressed: () { _appendValueToCalculator('('); },),
+          ]),
+          _buildKeyboardColumn(children: [
+            _buildKeyboardButton(text: '%', onPressed: () {},),
+            _buildKeyboardButton(text: '2', onPressed: () { _appendValueToCalculator('2'); },),
+            _buildKeyboardButton(text: '5', onPressed: () { _appendValueToCalculator('5'); },),
+            _buildKeyboardButton(text: '8', onPressed: () { _appendValueToCalculator('8'); },),
+            _buildKeyboardButton(text: '0', onPressed: () { _appendValueToCalculator('0'); },),
+          ]),
+          _buildKeyboardColumn(children: [
+            _buildKeyboardButton(text: ',', onPressed: () { _appendValueToCalculator(','); },),
+            _buildKeyboardButton(text: '3', onPressed: () { _appendValueToCalculator('3'); },),
+            _buildKeyboardButton(text: '6', onPressed: () { _appendValueToCalculator('6'); },),
+            _buildKeyboardButton(text: '9', onPressed: () { _appendValueToCalculator('9'); },),
+            _buildKeyboardButton(text: ')', onPressed: () { _appendValueToCalculator(')'); },),
+          ]),
+          _buildKeyboardColumn(children: [
+            _buildKeyboardButton(text: '÷', onPressed: () { _appendValueToCalculator('÷'); },),
+            _buildKeyboardButton(text: 'x', onPressed: () { _appendValueToCalculator('x'); },),
+            _buildKeyboardButton(text: '-', onPressed: () { _appendValueToCalculator('-'); },),
+            _buildKeyboardButton(text: '+', onPressed: () { _appendValueToCalculator('+'); },),
+            _buildClearButton(text: 'C', onPressed: () { _removeValueFromCalculator(); }, onLongPress: () { _removeAllFromCalculator(); }),
+          ]),
+          _buildKeyboardColumn(children: [
+            _buildKeyboardButton(text: 'pi', onPressed: () {},),
+            _buildKeyboardButton(text: '√', onPressed: () { _appendValueToCalculator('√'); },),
+            _buildKeyboardButton(text: '²', onPressed: () { _appendValueToCalculator('²'); },),
+            _buildResultButton(text: '=', onPressed: () {}),
+          ]),
         ],
       )
     );
