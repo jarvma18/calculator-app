@@ -54,10 +54,17 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
 
   Widget _buildKeyboardButton({required String text, required VoidCallback onPressed}) {
     return SizedBox(
-      width: 50,
-      height: 50,
+      width: (350 / 5) - 4,
+      height: (350 / 5) - 4,
       child: TextButton(
         onPressed: onPressed,
+        style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFFF7E7FF),
+          foregroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
         child: Text(text, style: const TextStyle(fontSize: 20)),
       ),
     );
@@ -65,11 +72,18 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
 
   Widget _buildClearButton({required String text, required VoidCallback onPressed, required VoidCallback onLongPress}) {
     return SizedBox(
-      width: 50,
-      height: 50,
+      width: (350 / 5) - 4,
+      height: (350 / 5) - 4,
       child: TextButton(
         onPressed: onPressed,
         onLongPress: onLongPress,
+        style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFFF7E7FF),
+          foregroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
         child: Text(text, style: const TextStyle(fontSize: 20)),
       ),
     );
@@ -77,10 +91,17 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
 
   Widget _buildResultButton({required String text, required VoidCallback onPressed}) {
     return SizedBox(
-      height: (250 - (10 * 4)) / 5 * 2 + 10, // height of 2 rows plus spacing
-      width: 50,
+      height: (350 - (3 * 4)) / 5 * 2,
+      width: (350 / 5) - 4,
       child: TextButton(
         onPressed: onPressed,
+        style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFFF7E7FF),
+          foregroundColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
         child: Text(text, style: const TextStyle(fontSize: 20)),
       ),
     );
@@ -88,7 +109,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
 
   Widget _buildKeyboardColumn({required List<Widget> children,}) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      spacing: 4,
       children: children,
     );
   }
@@ -96,9 +117,10 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 350,
       width: 350,
       child: Row(
+        spacing: 4,
         children: [
           _buildKeyboardColumn(children: [
             _buildKeyboardButton(text: 'mod', onPressed: () {},),
