@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   CalculatorMode(menuController: menu),
                   CalculatorHistory(historyItems: historyItems),
                   CalculatorBar(calculatorController: calculator),
+                  const SizedBox(height: 4),
                   CalculatorKeyboard(onChanged: _appendKeyboardStateToCalculator),
                 ],
               )

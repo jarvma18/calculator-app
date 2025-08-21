@@ -35,10 +35,13 @@ class _CalculatorModeState extends State<CalculatorMode> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(4.0),
       child: Container(
         color: const Color(0xFFF7E7FF),
         child: DropdownMenu<ModeSelectionItem>(
+          menuStyle: const MenuStyle(
+            backgroundColor: WidgetStatePropertyAll<Color>(Color(0xFFF7E7FF)),
+          ),
           initialSelection: modeSelectionItems.first,
           width: 350,
           controller: widget.menuController,
