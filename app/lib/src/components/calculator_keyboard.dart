@@ -121,7 +121,6 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
       width: 350,
       child: Row(
         spacing: 4,
-        // TODO: kyeboard object
         children: [
           _buildKeyboardColumn(children: [
             _buildKeyboardButton(text: 'mod', onPressed: () {},),
