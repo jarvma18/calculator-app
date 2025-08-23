@@ -59,6 +59,16 @@ class _CalculatorModeState extends State<CalculatorMode> {
               .map<DropdownMenuEntry<ModeSelectionItem>>(
                 (ModeSelectionItem mode) {
                   return DropdownMenuEntry<ModeSelectionItem>(
+                    style: const ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll<Color>(Color(0xFFF7E7FF)),
+                      foregroundColor: WidgetStatePropertyAll<Color>(Colors.black),
+                      textStyle: WidgetStatePropertyAll<TextStyle>(
+                        TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     value: mode,
                     label: mode.label,
                   );
