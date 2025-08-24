@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class KeyboardInput {
@@ -46,6 +48,64 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
       String text = calculator.text;
       if (text.isNotEmpty) {
         calculator.text = '';
+        calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+      }
+    });
+    widget.onChanged(calculator.text, calculator.selection);
+  }
+
+  bool _containsOnlyAllowedCharacters(String input) {
+    const validChars = '0123456789+-x÷(),√²';
+    for (final char in input.split('')) {
+      if (!validChars.contains(char)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  List<String> _listInputCharacters(String input) {
+    return input.split('');
+  }
+
+  bool _isFormulaValid(List<String> inputChars) {
+    // No 2 operators in a row
+    const operators = '+-x÷√²';
+    for (int i = 0; i < inputChars.length - 1; i++) {
+      if (operators.contains(inputChars[i]) && operators.contains(inputChars[i + 1])) {
+        return false;
+      }
+    }
+    // No two , in a number sequence
+    bool inNumber = false;
+    for (final char in inputChars) {
+      if (char == ',') {
+        if (inNumber) {
+          return false;
+        } else {
+          inNumber = true;
+        }
+      } else if (!'0123456789'.contains(char)) {
+        inNumber = false;
+      }
+    }
+    return true;
+  }
+
+  void _calculateResult() {
+    setState(() {
+      if (calculator.text.isEmpty) {
+        return;
+      } else if (!_containsOnlyAllowedCharacters(calculator.text)) {
+        calculator.text = 'Error';
+        calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+        widget.onChanged(calculator.text, calculator.selection);
+        print('Error: Invalid characters in input');
+        return;
+      } else {
+        final inputChars = _listInputCharacters(calculator.text);
+        print('Input Characters: $inputChars');
+        calculator.text = 'Result'; // Replace with actual result
         calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
       }
     });
@@ -154,7 +214,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
             _buildKeyboardButton(text: 'pi', onPressed: () {},),
             _buildKeyboardButton(text: '√', onPressed: () { _appendValueToCalculator('√'); },),
             _buildKeyboardButton(text: '²', onPressed: () { _appendValueToCalculator('²'); },),
-            _buildResultButton(text: '=', onPressed: () {}),
+            _buildResultButton(text: '=', onPressed: () { _calculateResult(); },),
           ]),
         ],
       )
