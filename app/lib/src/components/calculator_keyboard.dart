@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class KeyboardInput {
@@ -24,7 +22,7 @@ class CalculatorKeyboard extends StatefulWidget {
 class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
   KeyboardInput calculator = KeyboardInput('', TextSelection.collapsed(offset: 0));
 
-  void _appendValueToCalculator(String value) {
+  void _appendValue(String value) {
     setState(() {
       calculator.text += value;
       calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
@@ -32,7 +30,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
-  void _removeValueFromCalculator() {
+  void _removeSingleValue() {
     setState(() {
       String text = calculator.text;
       if (text.isNotEmpty) {
@@ -43,7 +41,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
-  void _removeAllFromCalculator() {
+  void _removeAll() {
     setState(() {
       String text = calculator.text;
       if (text.isNotEmpty) {
@@ -68,17 +66,43 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return input.split('');
   }
 
-  bool _isFormulaValid(List<String> inputChars) {
+  bool _areOperatorsInRow(List<String> input) {
+    const operators = '+-x÷√²';
+    for (int i = 0; i < input.length - 1; i++) {
+      if (operators.contains(input[i]) && operators.contains(input[i + 1])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool _multipleCommasInNumber(List<String> input) {
+    bool inNumber = false;
+    for (final char in input) {
+      if (char == ',') {
+        if (inNumber) {
+          return true;
+        } else {
+          inNumber = true;
+        }
+      } else if (!'0123456789'.contains(char)) {
+        inNumber = false;
+      }
+    }
+    return false;
+  }
+
+  bool _isValidFormula(List<String> input) {
     // No 2 operators in a row
     const operators = '+-x÷√²';
-    for (int i = 0; i < inputChars.length - 1; i++) {
-      if (operators.contains(inputChars[i]) && operators.contains(inputChars[i + 1])) {
+    for (int i = 0; i < input.length - 1; i++) {
+      if (operators.contains(input[i]) && operators.contains(input[i + 1])) {
         return false;
       }
     }
     // No two , in a number sequence
     bool inNumber = false;
-    for (final char in inputChars) {
+    for (final char in input) {
       if (char == ',') {
         if (inNumber) {
           return false;
@@ -184,36 +208,36 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
         children: [
           _buildKeyboardColumn(children: [
             _buildKeyboardButton(text: 'mod', onPressed: () {},),
-            _buildKeyboardButton(text: '1', onPressed: () { _appendValueToCalculator('1'); },),
-            _buildKeyboardButton(text: '4', onPressed: () { _appendValueToCalculator('4'); },),
-            _buildKeyboardButton(text: '7', onPressed: () { _appendValueToCalculator('7'); },),
-            _buildKeyboardButton(text: '(', onPressed: () { _appendValueToCalculator('('); },),
+            _buildKeyboardButton(text: '1', onPressed: () { _appendValue('1'); },),
+            _buildKeyboardButton(text: '4', onPressed: () { _appendValue('4'); },),
+            _buildKeyboardButton(text: '7', onPressed: () { _appendValue('7'); },),
+            _buildKeyboardButton(text: '(', onPressed: () { _appendValue('('); },),
           ]),
           _buildKeyboardColumn(children: [
             _buildKeyboardButton(text: '%', onPressed: () {},),
-            _buildKeyboardButton(text: '2', onPressed: () { _appendValueToCalculator('2'); },),
-            _buildKeyboardButton(text: '5', onPressed: () { _appendValueToCalculator('5'); },),
-            _buildKeyboardButton(text: '8', onPressed: () { _appendValueToCalculator('8'); },),
-            _buildKeyboardButton(text: '0', onPressed: () { _appendValueToCalculator('0'); },),
+            _buildKeyboardButton(text: '2', onPressed: () { _appendValue('2'); },),
+            _buildKeyboardButton(text: '5', onPressed: () { _appendValue('5'); },),
+            _buildKeyboardButton(text: '8', onPressed: () { _appendValue('8'); },),
+            _buildKeyboardButton(text: '0', onPressed: () { _appendValue('0'); },),
           ]),
           _buildKeyboardColumn(children: [
-            _buildKeyboardButton(text: ',', onPressed: () { _appendValueToCalculator(','); },),
-            _buildKeyboardButton(text: '3', onPressed: () { _appendValueToCalculator('3'); },),
-            _buildKeyboardButton(text: '6', onPressed: () { _appendValueToCalculator('6'); },),
-            _buildKeyboardButton(text: '9', onPressed: () { _appendValueToCalculator('9'); },),
-            _buildKeyboardButton(text: ')', onPressed: () { _appendValueToCalculator(')'); },),
+            _buildKeyboardButton(text: ',', onPressed: () { _appendValue(','); },),
+            _buildKeyboardButton(text: '3', onPressed: () { _appendValue('3'); },),
+            _buildKeyboardButton(text: '6', onPressed: () { _appendValue('6'); },),
+            _buildKeyboardButton(text: '9', onPressed: () { _appendValue('9'); },),
+            _buildKeyboardButton(text: ')', onPressed: () { _appendValue(')'); },),
           ]),
           _buildKeyboardColumn(children: [
-            _buildKeyboardButton(text: '÷', onPressed: () { _appendValueToCalculator('÷'); },),
-            _buildKeyboardButton(text: 'x', onPressed: () { _appendValueToCalculator('x'); },),
-            _buildKeyboardButton(text: '-', onPressed: () { _appendValueToCalculator('-'); },),
-            _buildKeyboardButton(text: '+', onPressed: () { _appendValueToCalculator('+'); },),
-            _buildClearButton(text: 'C', onPressed: () { _removeValueFromCalculator(); }, onLongPress: () { _removeAllFromCalculator(); }),
+            _buildKeyboardButton(text: '÷', onPressed: () { _appendValue('÷'); },),
+            _buildKeyboardButton(text: 'x', onPressed: () { _appendValue('x'); },),
+            _buildKeyboardButton(text: '-', onPressed: () { _appendValue('-'); },),
+            _buildKeyboardButton(text: '+', onPressed: () { _appendValue('+'); },),
+            _buildClearButton(text: 'C', onPressed: () { _removeSingleValue(); }, onLongPress: () { _removeAll(); }),
           ]),
           _buildKeyboardColumn(children: [
             _buildKeyboardButton(text: 'pi', onPressed: () {},),
-            _buildKeyboardButton(text: '√', onPressed: () { _appendValueToCalculator('√'); },),
-            _buildKeyboardButton(text: '²', onPressed: () { _appendValueToCalculator('²'); },),
+            _buildKeyboardButton(text: '√', onPressed: () { _appendValue('√'); },),
+            _buildKeyboardButton(text: '²', onPressed: () { _appendValue('²'); },),
             _buildResultButton(text: '=', onPressed: () { _calculateResult(); },),
           ]),
         ],

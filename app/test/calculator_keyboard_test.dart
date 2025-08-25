@@ -65,7 +65,7 @@ void main() {
         await tester.tap(find.text(button));
         await tester.pumpAndSettle();
       }
-      expect(controller.text, '789÷456x123-0,=+()√²');
+      expect(controller.text, '789÷456x123-0,+()√²');
     });
 });
 }
