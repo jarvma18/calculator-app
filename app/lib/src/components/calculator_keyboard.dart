@@ -52,6 +52,10 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
+  List<String> _listInputCharacters(String input) {
+    return input.split('');
+  }
+
   bool _containsNonAllowedCharacters(List<String> input) {
     const allowedCharacters = '0123456789+-x÷(),√²pi ';
     for (var char in input) {
@@ -60,10 +64,6 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
       }
     }
     return false;
-  }
-
-  List<String> _listInputCharacters(String input) {
-    return input.split('');
   }
 
   bool _multipleOperatorsInRow(List<String> input) {
