@@ -52,22 +52,22 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
-  bool _containsOnlyAllowedCharacters(String input) {
-    const validChars = '0123456789+-x÷(),√²';
-    for (final char in input.split('')) {
-      if (!validChars.contains(char)) {
-        return false;
+  bool _containsNonAllowedCharacters(List<String> input) {
+    const allowedCharacters = '0123456789+-x÷(),√²pi ';
+    for (var char in input) {
+      if (!allowedCharacters.contains(char)) {
+        return true;
       }
     }
-    return true;
+    return false;
   }
 
   List<String> _listInputCharacters(String input) {
     return input.split('');
   }
 
-  bool _areOperatorsInRow(List<String> input) {
-    const operators = '+-x÷√²';
+  bool _multipleOperatorsInRow(List<String> input) {
+    const operators = '+-x÷';
     for (int i = 0; i < input.length - 1; i++) {
       if (operators.contains(input[i]) && operators.contains(input[i + 1])) {
         return true;
@@ -76,42 +76,20 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return false;
   }
 
-  bool _multipleCommasInNumber(List<String> input) {
-    bool inNumber = false;
-    for (final char in input) {
-      if (char == ',') {
-        if (inNumber) {
-          return true;
-        } else {
-          inNumber = true;
-        }
-      } else if (!'0123456789'.contains(char)) {
-        inNumber = false;
-      }
-    }
-    return false;
+  void setErrorState() {
+    setState(() {
+      calculator.text = 'Error';
+      calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+    });
+    widget.onChanged(calculator.text, calculator.selection);
   }
 
   bool _isValidFormula(List<String> input) {
-    // No 2 operators in a row
-    const operators = '+-x÷√²';
-    for (int i = 0; i < input.length - 1; i++) {
-      if (operators.contains(input[i]) && operators.contains(input[i + 1])) {
-        return false;
-      }
+    if (_containsNonAllowedCharacters(input)) {
+      return false;
     }
-    // No two , in a number sequence
-    bool inNumber = false;
-    for (final char in input) {
-      if (char == ',') {
-        if (inNumber) {
-          return false;
-        } else {
-          inNumber = true;
-        }
-      } else if (!'0123456789'.contains(char)) {
-        inNumber = false;
-      }
+    if (_multipleOperatorsInRow(input)) {
+      return false;
     }
     return true;
   }
@@ -120,17 +98,10 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     setState(() {
       if (calculator.text.isEmpty) {
         return;
-      } else if (!_containsOnlyAllowedCharacters(calculator.text)) {
-        calculator.text = 'Error';
-        calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
-        widget.onChanged(calculator.text, calculator.selection);
-        print('Error: Invalid characters in input');
-        return;
+      } else if (_isValidFormula(_listInputCharacters(calculator.text))) {
+        // TODO: Implement actual calculation logic here
       } else {
-        final inputChars = _listInputCharacters(calculator.text);
-        print('Input Characters: $inputChars');
-        calculator.text = 'Result'; // Replace with actual result
-        calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+        setErrorState();
       }
     });
     widget.onChanged(calculator.text, calculator.selection);
