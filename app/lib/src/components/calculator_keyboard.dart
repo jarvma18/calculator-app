@@ -84,6 +84,14 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
+  void _setNotSupportedState() {
+    setState(() {
+      calculator.text = 'Not Supported';
+      calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+    });
+    widget.onChanged(calculator.text, calculator.selection);
+  }
+
   bool _isValidFormula(List<String> input) {
     if (_containsNonAllowedCharacters(input)) {
       return false;
