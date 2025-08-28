@@ -76,7 +76,40 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return false;
   }
 
-  void setErrorState() {
+  bool _containsMultipleArithmeticOperators(List<String> input) {
+    const operators = '+-x÷';
+    int count = 0;
+    for (var char in input) {
+      if (operators.contains(char)) {
+        count++;
+      }
+      if (count > 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool _startsOrEndsWithOperator(List<String> input) {
+    const operators = '+-x÷';
+    if (input.isEmpty) return false;
+    return operators.contains(input.first) || operators.contains(input.last);
+  }
+
+  bool _hasMultipleDecimalPoints(List<String> input) {
+    int decimalPointCount = 0;
+    for (var char in input) {
+      if (char == ',') {
+        decimalPointCount++;
+      }
+      if (decimalPointCount > 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void _setErrorState() {
     setState(() {
       calculator.text = 'Error';
       calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
@@ -99,18 +132,82 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     if (_multipleOperatorsInRow(input)) {
       return false;
     }
+    if (_startsOrEndsWithOperator(input)) {
+      return false;
+    }
+    if (_hasMultipleDecimalPoints(input)) {
+      return false;
+    }
     return true;
   }
 
-  void _calculateResult() {
+  List<String> _mergeNumbers(List<String> input) {
+    List<String> merged = [];
+    String currentNumber = '';
+    for (var char in input) {
+      if ('0123456789,'.contains(char)) {
+        currentNumber += char;
+      } else {
+        if (currentNumber.isNotEmpty) {
+          merged.add(currentNumber);
+          currentNumber = '';
+        }
+        merged.add(char);
+      }
+    }
+    if (currentNumber.isNotEmpty) {
+      merged.add(currentNumber);
+    }
+    return merged;
+  }
+
+  void _calculateResult(List<String> input) {
+    double firstValue = double.parse(input[0]);
+    String operator = input[1];
+    double secondValue = double.parse(input[2]);
+    double result = 0;
+    switch (operator) {
+      case '+':
+        result = firstValue + secondValue;
+        break;
+      case '-':
+        result = firstValue - secondValue;
+        break;
+      case 'x':
+        result = firstValue * secondValue;
+        break;
+      case '÷':
+        if (secondValue == 0) {
+          _setErrorState();
+          return;
+        }
+        result = firstValue / secondValue;
+        break;
+      default:
+        _setNotSupportedState();
+        return;
+    }
+    setState(() {
+      calculator.text = result.toString();
+      calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
+    });
+    widget.onChanged(calculator.text, calculator.selection);
+  }
+
+  void _calculate() {
     setState(() {
       if (calculator.text.isEmpty) {
         return;
-      } else if (_isValidFormula(_listInputCharacters(calculator.text))) {
-        // TODO: Implement actual calculation logic here
-      } else {
-        setErrorState();
       }
+      if (!_isValidFormula(_listInputCharacters(calculator.text))) {
+        _setErrorState();
+        return;
+      }
+      if (_containsMultipleArithmeticOperators(_listInputCharacters(calculator.text))) {
+        _setNotSupportedState();
+        return;
+      }
+      _calculateResult(_mergeNumbers(_listInputCharacters(calculator.text)));
     });
     widget.onChanged(calculator.text, calculator.selection);
   }
