@@ -214,10 +214,10 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
             _buildClearButton(text: 'C', onPressed: () { _removeSingleValue(); }, onLongPress: () { _removeAll(); }),
           ]),
           _buildKeyboardColumn(children: [
-            _buildKeyboardButton(text: 'pi', onPressed: () {},),
+            _buildKeyboardButton(text: 'π', onPressed: () { _appendValue('π'); },),
             _buildKeyboardButton(text: '√', onPressed: () { _appendValue('√'); },),
             _buildKeyboardButton(text: '²', onPressed: () { _appendValue('²'); },),
-            _buildResultButton(text: '=', onPressed: () { _calculateResult(); },),
+            _buildResultButton(text: '=', onPressed: () { _calculate(); },),
           ]),
         ],
       )
