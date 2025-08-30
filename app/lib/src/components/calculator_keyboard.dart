@@ -56,7 +56,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return input.split('');
   }
 
-  bool _containsNonAllowedCharacters(List<String> input) {
+  bool _hasNonAllowedCharacters(List<String> input) {
     const allowedCharacters = '0123456789+-x÷(),√²pi ';
     for (var char in input) {
       if (!allowedCharacters.contains(char)) {
@@ -66,7 +66,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return false;
   }
 
-  bool _multipleOperatorsInRow(List<String> input) {
+  bool _hasMultipleOperatorsInRow(List<String> input) {
     const operators = '+-x÷';
     for (int i = 0; i < input.length - 1; i++) {
       if (operators.contains(input[i]) && operators.contains(input[i + 1])) {
@@ -76,7 +76,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return false;
   }
 
-  bool _containsMultipleArithmeticOperators(List<String> input) {
+  bool _hasMultipleArithmeticOperators(List<String> input) {
     const operators = '+-x÷';
     int count = 0;
     for (var char in input) {
@@ -90,7 +90,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return false;
   }
 
-  bool _startsOrEndsWithOperator(List<String> input) {
+  bool _hasOperatorAtStartOrEnd(List<String> input) {
     const operators = '+-x÷';
     if (input.isEmpty) return false;
     return operators.contains(input.first) || operators.contains(input.last);
@@ -126,13 +126,13 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
   }
 
   bool _isValidFormula(List<String> input) {
-    if (_containsNonAllowedCharacters(input)) {
+    if (_hasNonAllowedCharacters(input)) {
       return false;
     }
-    if (_multipleOperatorsInRow(input)) {
+    if (_hasMultipleOperatorsInRow(input)) {
       return false;
     }
-    if (_startsOrEndsWithOperator(input)) {
+    if (_hasOperatorAtStartOrEnd(input)) {
       return false;
     }
     if (_hasMultipleDecimalPoints(input)) {
