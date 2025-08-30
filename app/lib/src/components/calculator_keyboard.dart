@@ -161,31 +161,16 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return merged;
   }
 
-  void _calculateResult(List<String> input) {
-    double firstValue = double.parse(input[0]);
-    String operator = input[1];
-    double secondValue = double.parse(input[2]);
-    double result = 0;
-    switch (operator) {
-      case '+':
-        result = firstValue + secondValue;
-        break;
-      case '-':
-        result = firstValue - secondValue;
-        break;
-      case 'x':
-        result = firstValue * secondValue;
-        break;
-      case '÷':
-        if (secondValue == 0) {
-          _setErrorState();
-          return;
-        }
-        result = firstValue / secondValue;
-        break;
-      default:
-        _setNotSupportedState();
-        return;
+  void _hasZeroDivisionError(double secondValue) {
+    if (secondValue == 0) {
+      _setErrorState();
+    }
+  }
+
+  void _hasNotSupportedOperator(String operator) {
+    const supportedOperators = '+-x÷';
+    if (!supportedOperators.contains(operator)) {
+      _setNotSupportedState();
     }
   }
 
@@ -225,7 +210,28 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
-  void _calculate() {
+  bool _hasMoreThanThreeElements(List<String> input) {
+    return input.length > 3;
+  }
+
+  String _buildFormula(String firstValue, String operator, String secondValue) {
+    //add spaces between values and operator for better readability
+    return '$firstValue $operator $secondValue';
+  }
+
+  void _calculateResult(List<String> input) {
+    double firstValue = double.parse(input[0]);
+    String operator = input[1];
+    double secondValue = double.parse(input[2]);
+    String formula = _buildFormula(firstValue.toString(), operator, secondValue.toString());
+    _hasNotSupportedOperator(operator);
+    _hasZeroDivisionError(secondValue);
+    double result = _calculateBasedOnOperator(firstValue, operator, secondValue);
+    String formulaWithResult = _buildFormulaWithResult(formula, result.toString());
+    _setResult(formulaWithResult);
+  }
+
+  void _equalTo() {
     setState(() {
       if (calculator.text.isEmpty) {
         return;
