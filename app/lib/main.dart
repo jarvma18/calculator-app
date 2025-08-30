@@ -50,9 +50,16 @@ class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController calculator = TextEditingController();
   List<String> historyItems = <String>[];
 
+  void _appendToHistory(String value) {
+    setState(() {
+      historyItems.insert(0, value);
+    });
+  }
+
   void _appendKeyboardStateToCalculator(String value, [TextSelection? selection]) {
     final selValue = selection ?? TextSelection.collapsed(offset: value.length);
     calculator.value = TextEditingValue(text: value, selection: selValue);
+    _appendToHistory(calculator.text);
   }
 
   @override
