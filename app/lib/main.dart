@@ -56,10 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  bool hasEqualSign(String value) {
+    return value.contains('=');
+  }
+
   void _appendKeyboardStateToCalculator(String value, [TextSelection? selection]) {
     final selValue = selection ?? TextSelection.collapsed(offset: value.length);
     calculator.value = TextEditingValue(text: value, selection: selValue);
+    if (hasEqualSign(value)) {
     _appendToHistory(calculator.text);
+    }
   }
 
   @override
