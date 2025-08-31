@@ -161,9 +161,11 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return merged;
   }
 
-  void _hasZeroDivisionError(double secondValue) {
-    if (secondValue == 0) {
+  void _hasZeroDivisionError(double secondValue, String operator) {
+    String divideOperator = '÷';
+    if (operator == divideOperator && secondValue == 0) {
       _setErrorState();
+      throw Exception('Division by zero');
     }
   }
 
@@ -171,6 +173,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     const supportedOperators = '+-x÷';
     if (!supportedOperators.contains(operator)) {
       _setNotSupportedState();
+      throw Exception('Unsupported operator');
     }
   }
 
@@ -223,12 +226,13 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     double firstValue = double.parse(input[0]);
     String operator = input[1];
     double secondValue = double.parse(input[2]);
-    String formula = _buildFormula(firstValue.toString(), operator, secondValue.toString());
     _hasNotSupportedOperator(operator);
-    _hasZeroDivisionError(secondValue);
+    _hasZeroDivisionError(secondValue, operator);
+    String formula = _buildFormula(firstValue.toString(), operator, secondValue.toString());
     double result = _calculateBasedOnOperator(firstValue, operator, secondValue);
     String formulaWithResult = _buildFormulaWithResult(formula, result.toString());
     _setResult(formulaWithResult);
+    _setResult(result.toString());
   }
 
   void _equalTo() {
@@ -237,6 +241,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
         return;
       }
       List<String> input = _listInputCharacters(calculator.text);
+      List<String> mergedInput = _mergeNumbers(input);
       if (!_isValidFormula(input)) {
         _setErrorState();
         return;
@@ -245,11 +250,11 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
         _setNotSupportedState();
         return;
       }
-      if (_hasMoreThanThreeElements(input)) {
-      _setNotSupportedState();
-      return;
+      if (_hasMoreThanThreeElements(mergedInput)) {
+        _setNotSupportedState();
+        return;
     }
-      _calculateResult(_mergeNumbers(input));
+      _calculateResult(mergedInput);
     });
     widget.onChanged(calculator.text, calculator.selection);
   }
@@ -339,7 +344,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
             _buildKeyboardButton(text: '0', onPressed: () { _appendValue('0'); },),
           ]),
           _buildKeyboardColumn(children: [
-            _buildKeyboardButton(text: ',', onPressed: () { _appendValue(','); },),
+            _buildKeyboardButton(text: '.', onPressed: () { _appendValue('.'); },),
             _buildKeyboardButton(text: '3', onPressed: () { _appendValue('3'); },),
             _buildKeyboardButton(text: '6', onPressed: () { _appendValue('6'); },),
             _buildKeyboardButton(text: '9', onPressed: () { _appendValue('9'); },),
