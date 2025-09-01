@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../common/arithmetic.dart';
 
 class KeyboardInput {
   String text;
@@ -57,7 +58,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
   }
 
   bool _hasNonAllowedCharacters(List<String> input) {
-    const allowedCharacters = '0123456789+-x÷(),√²pi ';
+    const allowedCharacters = '0123456789+-x÷().√²pi ';
     for (var char in input) {
       if (!allowedCharacters.contains(char)) {
         return true;
@@ -96,14 +97,18 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     return operators.contains(input.first) || operators.contains(input.last);
   }
 
-  bool _hasMultipleDecimalPoints(List<String> input) {
+  bool _hasMultipleDecimalPointsPerContinuousNumber(List<String> input) {
     int decimalPointCount = 0;
     for (var char in input) {
-      if (char == ',') {
+      if (char == '.') {
         decimalPointCount++;
-      }
-      if (decimalPointCount > 1) {
-        return true;
+        if (decimalPointCount > 1) {
+          return true; 
+        }
+      } else if ('0123456789'.contains(char)) {
+        continue; // part of the same number
+      } else {
+        decimalPointCount = 0; // reset for new number 
       }
     }
     return false;
@@ -135,7 +140,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     if (_hasOperatorAtStartOrEnd(input)) {
       return false;
     }
-    if (_hasMultipleDecimalPoints(input)) {
+    if (_hasMultipleDecimalPointsPerContinuousNumber(input)) {
       return false;
     }
     return true;
@@ -145,7 +150,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     List<String> merged = [];
     String currentNumber = '';
     for (var char in input) {
-      if ('0123456789,'.contains(char)) {
+      if ('0123456789.'.contains(char)) {
         currentNumber += char;
       } else {
         if (currentNumber.isNotEmpty) {
@@ -169,7 +174,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     }
   }
 
-  void _hasNotSupportedOperator(String operator) {
+  void _hasUnsupportedOperator(String operator) {
     const supportedOperators = '+-x÷';
     if (!supportedOperators.contains(operator)) {
       _setNotSupportedState();
@@ -226,7 +231,7 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     double firstValue = double.parse(input[0]);
     String operator = input[1];
     double secondValue = double.parse(input[2]);
-    _hasNotSupportedOperator(operator);
+    _hasUnsupportedOperator(operator);
     _hasZeroDivisionError(secondValue, operator);
     String formula = _buildFormula(firstValue.toString(), operator, secondValue.toString());
     double result = _calculateBasedOnOperator(firstValue, operator, secondValue);
