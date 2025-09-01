@@ -20,7 +20,7 @@ class CalculatorKeyboard extends StatefulWidget {
   State<CalculatorKeyboard> createState() => _CalculatorKeyboardState();
 }
 
-class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
+class _CalculatorKeyboardState extends State<CalculatorKeyboard> with Arithmetic {
   KeyboardInput calculator = KeyboardInput('', TextSelection.collapsed(offset: 0));
 
   void _appendValue(String value) {
@@ -53,67 +53,6 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
-  List<String> _listInputCharacters(String input) {
-    return input.split('');
-  }
-
-  bool _hasNonAllowedCharacters(List<String> input) {
-    const allowedCharacters = '0123456789+-x÷().√²pi ';
-    for (var char in input) {
-      if (!allowedCharacters.contains(char)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  bool _hasMultipleOperatorsInRow(List<String> input) {
-    const operators = '+-x÷';
-    for (int i = 0; i < input.length - 1; i++) {
-      if (operators.contains(input[i]) && operators.contains(input[i + 1])) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  bool _hasMultipleArithmeticOperators(List<String> input) {
-    const operators = '+-x÷';
-    int count = 0;
-    for (var char in input) {
-      if (operators.contains(char)) {
-        count++;
-      }
-      if (count > 1) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  bool _hasOperatorAtStartOrEnd(List<String> input) {
-    const operators = '+-x÷';
-    if (input.isEmpty) return false;
-    return operators.contains(input.first) || operators.contains(input.last);
-  }
-
-  bool _hasMultipleDecimalPointsPerContinuousNumber(List<String> input) {
-    int decimalPointCount = 0;
-    for (var char in input) {
-      if (char == '.') {
-        decimalPointCount++;
-        if (decimalPointCount > 1) {
-          return true; 
-        }
-      } else if ('0123456789'.contains(char)) {
-        continue; // part of the same number
-      } else {
-        decimalPointCount = 0; // reset for new number 
-      }
-    }
-    return false;
-  }
-
   void _setErrorState() {
     setState(() {
       calculator.text = 'Error';
@@ -128,42 +67,6 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
       calculator.selection = TextSelection.collapsed(offset: calculator.text.length);
     });
     widget.onChanged(calculator.text, calculator.selection);
-  }
-
-  bool _isValidFormula(List<String> input) {
-    if (_hasNonAllowedCharacters(input)) {
-      return false;
-    }
-    if (_hasMultipleOperatorsInRow(input)) {
-      return false;
-    }
-    if (_hasOperatorAtStartOrEnd(input)) {
-      return false;
-    }
-    if (_hasMultipleDecimalPointsPerContinuousNumber(input)) {
-      return false;
-    }
-    return true;
-  }
-
-  List<String> _mergeNumbers(List<String> input) {
-    List<String> merged = [];
-    String currentNumber = '';
-    for (var char in input) {
-      if ('0123456789.'.contains(char)) {
-        currentNumber += char;
-      } else {
-        if (currentNumber.isNotEmpty) {
-          merged.add(currentNumber);
-          currentNumber = '';
-        }
-        merged.add(char);
-      }
-    }
-    if (currentNumber.isNotEmpty) {
-      merged.add(currentNumber);
-    }
-    return merged;
   }
 
   void _hasZeroDivisionError(double secondValue, String operator) {
@@ -182,34 +85,6 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     }
   }
 
-  String _buildFormulaWithResult(String formula, String result) {
-    return '$formula = $result';
-  }
-
-  double _sum(double a, double b) => a + b;
-  double _subtract(double a, double b) => a - b;
-  double _multiply(double a, double b) => a * b;
-  double _divide(double a, double b) => a / b;
-
-  double _calculateBasedOnOperator(double firstValue, String operator, double secondValue) {
-    String sumOperator = '+';
-    String subtractOperator = '-';
-    String multiplyOperator = 'x';
-    String divideOperator = '÷';
-
-    if (operator == sumOperator) {
-      return _sum(firstValue, secondValue);
-    } else if (operator == subtractOperator) {
-      return _subtract(firstValue, secondValue);
-    } else if (operator == multiplyOperator) {
-      return _multiply(firstValue, secondValue);
-    } else if (operator == divideOperator) {
-      return _divide(firstValue, secondValue);
-    } else {
-      throw Exception('Unsupported operator');
-    }
-  }
-
   void _setResult(String result) {
     setState(() {
       calculator.text = result;
@@ -218,24 +93,15 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
     widget.onChanged(calculator.text, calculator.selection);
   }
 
-  bool _hasMoreThanThreeElements(List<String> input) {
-    return input.length > 3;
-  }
-
-  String _buildFormula(String firstValue, String operator, String secondValue) {
-    //add spaces between values and operator for better readability
-    return '$firstValue $operator $secondValue';
-  }
-
   void _calculateResult(List<String> input) {
     double firstValue = double.parse(input[0]);
     String operator = input[1];
     double secondValue = double.parse(input[2]);
     _hasUnsupportedOperator(operator);
     _hasZeroDivisionError(secondValue, operator);
-    String formula = _buildFormula(firstValue.toString(), operator, secondValue.toString());
-    double result = _calculateBasedOnOperator(firstValue, operator, secondValue);
-    String formulaWithResult = _buildFormulaWithResult(formula, result.toString());
+    String formula = buildFormula(firstValue.toString(), operator, secondValue.toString());
+    double result = calculateBasedOnOperator(firstValue, operator, secondValue);
+    String formulaWithResult = buildFormulaWithResult(formula, result.toString());
     _setResult(formulaWithResult);
     _setResult(result.toString());
   }
@@ -245,17 +111,17 @@ class _CalculatorKeyboardState extends State<CalculatorKeyboard> {
       if (calculator.text.isEmpty) {
         return;
       }
-      List<String> input = _listInputCharacters(calculator.text);
-      List<String> mergedInput = _mergeNumbers(input);
-      if (!_isValidFormula(input)) {
+      List<String> input = listInputCharacters(calculator.text);
+      List<String> mergedInput = mergeNumbers(input);
+      if (!isValidFormula(input)) {
         _setErrorState();
         return;
       }
-      if (_hasMultipleArithmeticOperators(input)) {
+      if (hasMultipleArithmeticOperators(input)) {
         _setNotSupportedState();
         return;
       }
-      if (_hasMoreThanThreeElements(mergedInput)) {
+      if (hasMoreThanThreeElements(mergedInput)) {
         _setNotSupportedState();
         return;
     }
