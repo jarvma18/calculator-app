@@ -60,12 +60,12 @@ void main() {
 
     testWidgets('should input all available digits and operators', (WidgetTester tester) async {
       await tester.pumpWidget(createWidgetForTest());
-      final buttons = ['7', '8', '9', '÷', '4', '5', '6', 'x', '1', '2', '3', '-', '0', ',', '+', '(', ')', '√', '²'];
+      final buttons = ['7', '8', '9', '÷', '4', '5', '6', 'x', '1', '2', '3', '-', '0', '.', '+', '(', ')', '√', '²'];
       for (final button in buttons) {
         await tester.tap(find.text(button));
         await tester.pumpAndSettle();
       }
-      expect(controller.text, '789÷456x123-0,+()√²');
+      expect(controller.text, '789÷456x123-0.+()√²');
     });
 });
 }
