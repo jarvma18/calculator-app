@@ -134,3 +134,5 @@ mixin Arithmetic {
     return '$firstValue $operator $secondValue';
   }
 }
+
+class FunctionHoldingClassForMixin with Arithmetic {} // Used to access mixin methods in tests
